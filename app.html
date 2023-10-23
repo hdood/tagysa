@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html
+	lang="en"
+	{{
+	HTML_ATTRS
+	}}
+>
+	<head
+		{{
+		HEAD_ATTRS
+		}}
+	>
+		<link
+			rel="icon"
+			type="image/svg"
+			href="~/assets/logo.svg"
+		/>
+		{{ HEAD }}
+
+		<link
+			rel="icon"
+			type="image/svg"
+			href="~/assets/logo.svg"
+		/>
+	</head>
+	<body
+		{{
+		BODY_ATTRS
+		}}
+	>
+		{{ APP }}
+
+		<!-- <script>
+			window.fbAsyncInit = function () {
+				FB.init({
+					appId: "{your-app-id}",
+					cookie: true,
+					xfbml: true,
+					version: "{api-version}",
+				});
+
+				FB.AppEvents.logPageView();
+			};
+
+			(function (d, s, id) {
+				var js,
+					fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) {
+					return;
+				}
+				js = d.createElement(s);
+				js.id = id;
+				js.src = "https://connect.facebook.net/en_US/sdk.js";
+				fjs.parentNode.insertBefore(js, fjs);
+			})(document, "script", "facebook-jssdk");
+
+			console.log("facebook initialized");
+		</script> -->
+		<script
+			async
+			defer
+			src="https://platform.instagram.com/en_US/embeds.js"
+		></script>
+		<script src="https://js.stripe.com/v3/"></script>
+	</body>
+</html>

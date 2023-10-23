@@ -1,0 +1,163 @@
+<template>
+	<TransitionRoot
+		appear
+		:show="props.show"
+		as="template"
+	>
+		<Dialog
+			as="div"
+			@close="closeModal"
+			class="relative z-[999999]"
+		>
+			<TransitionChild
+				as="template"
+				enter="duration-300 ease-out"
+				enter-from="opacity-0"
+				enter-to="opacity-100"
+				leave="duration-200 ease-in"
+				leave-from="opacity-100"
+				leave-to="opacity-0"
+			>
+				<div class="fixed inset-0 bg-black bg-opacity-25" />
+			</TransitionChild>
+
+			<div class="fixed inset-0 overflow-y-auto">
+				<div
+					class="flex min-h-full items-center justify-center p-4 text-center"
+				>
+					<TransitionChild
+						as="template"
+						enter="duration-300 ease-out"
+						enter-from="opacity-0 scale-95"
+						enter-to="opacity-100 scale-100"
+						leave="duration-200 ease-in"
+						leave-from="opacity-100 scale-100"
+						leave-to="opacity-0 scale-95"
+					>
+						<DialogPanel
+							class="w-full max-w-[20rem] transform overflow-hidden rounded-2xl bg-base-200 p-6 text-left align-middle shadow-xl transition-all z-[999999]"
+						>
+							<DialogTitle
+								as="h3"
+								class="text-lg font-medium leading-6 text-base-content mb-6"
+							>
+								<div>Phone</div>
+							</DialogTitle>
+							<transition
+								enter-active-class="transition-all"
+								enter-from-class="opacity-0 -translate-x-4"
+								leave-active-class="transition-all"
+								leave-to-class="opacity-0 translate-x-4"
+								as="div"
+								class="h-full"
+								mode="out-in"
+							>
+								<div class="flex flex-col gap-3">
+									<!-- share to social media-->
+									<a
+										class="flex w-full justify-between items-center hover:bg-gray-200 rounded-md cursor-pointer p-1"
+										:href="`https://api.whatsapp.com/send?phone=${user.country_code}${user.phone}`"
+										target="_blank"
+									>
+										<div class="flex items-center gap-2">
+											<div
+												class="grid place-items-center p-1 rounded-md"
+											>
+												<icon
+													name="logos:whatsapp-icon"
+													size="30"
+												/>
+											</div>
+											<div>Whatsapp</div>
+										</div>
+										<div>
+											<icon
+												size="20"
+												name="icon-park:right"
+											/>
+										</div>
+									</a>
+									<a
+										class="flex w-full justify-between items-center hover:bg-gray-200 rounded-md cursor-pointer p-1"
+										:href="`tel:+${user.country_code}${user.phone}`"
+									>
+										<div class="flex items-center gap-2">
+											<div
+												class="grid place-items-center p-1 rounded-md"
+											>
+												<icon
+													name="material-symbols:call"
+													size="30"
+												/>
+											</div>
+											<div>Call</div>
+										</div>
+										<div>
+											<icon
+												size="20"
+												name="icon-park:right"
+											/>
+										</div>
+									</a>
+									<a
+										class="flex w-full justify-between items-center hover:bg-gray-200 rounded-md cursor-pointer p-1"
+										:href="`sms:+${user.country_code}${user.phone}`"
+									>
+										<div class="flex items-center gap-2">
+											<div
+												class="grid place-items-center p-1 rounded-md"
+											>
+												<icon
+													name="material-symbols:sms"
+													size="30"
+												/>
+											</div>
+											<div>Text</div>
+										</div>
+										<div>
+											<icon
+												size="20"
+												name="icon-park:right"
+											/>
+										</div>
+									</a>
+								</div>
+							</transition>
+
+							<QrModal
+								:show="showQrModal"
+								@close="showQrModal = false"
+								:name="user.name"
+							/>
+						</DialogPanel>
+					</TransitionChild>
+				</div>
+			</div>
+		</Dialog>
+	</TransitionRoot>
+</template>
+
+<script setup>
+	import {
+		TransitionRoot,
+		TransitionChild,
+		Dialog,
+		DialogPanel,
+		DialogTitle,
+	} from "@headlessui/vue";
+	import { useNotificationsStore } from "~/stores/notifications";
+	const { errorNotification } = useNotificationsStore();
+
+	const { user } = toRefs(props);
+	const showQrModal = ref(false);
+	const shareTo = ref(false);
+	const copied = ref(false);
+
+	const props = defineProps(["show", "user"]);
+
+	const emit = defineEmits(["close"]);
+
+	function closeModal() {
+		emit("close");
+	}
+</script>
