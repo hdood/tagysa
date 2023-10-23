@@ -5,24 +5,33 @@
 				<div class="flex p-4 space-x-4 rounded-lg md:space-x-6 bg-base-200 text-base-content">
 					<div class="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-violet-400">
 						<icon name="solar:card-bold" size="35" />
-
 					</div>
 					<div class="flex flex-col justify-center align-middle">
 						<p class="text-3xl font-semibold leadi">{{ user.cards.length }}</p>
 						<p class="capitalize">Cards</p>
 					</div>
 				</div>
+
 				<div class="flex p-4 space-x-4 rounded-lg md:space-x-6 bg-base-200 text-base-content">
 					<div class="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-violet-400">
 						<icon name="mingcute:finger-tap-fill" size="35" />
-
-						
 					</div>
 					<div class="flex flex-col justify-center align-middle">
 						<p class="text-3xl font-semibold leadi">{{ user.cards.length }}</p>
 						<p class="capitalize">Taps</p>
 					</div>
 				</div>
+
+				<div class="flex p-4 space-x-4 rounded-lg md:space-x-6 bg-base-200 text-base-content">
+					<div class="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-violet-400">
+						<icon name="mingcute:finger-tap-fill" size="35" />
+					</div>
+					<div class="flex flex-col justify-center align-middle">
+						<p class="text-3xl font-semibold leadi">{{ user.cards.length }}</p>
+						<p class="capitalize">Taps</p>
+					</div>
+				</div>
+
 				<NuxtLink to="/products" class="flex p-4 space-x-4 rounded-lg md:space-x-6 bg-base-200 text-base-content">
 					<div class="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-violet-400">
 						<icon name="mdi:cart" size="35" />

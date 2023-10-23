@@ -20,11 +20,16 @@ module.exports = {
 			{
 				light: {
 					...require('daisyui/src/theming/themes')['[data-theme=light]'],
-					primary: '#B17FF8',
+					primary: '#F56E01',
+					'primary-content': 'white',
+				},
+				halloween: {
+					...require('daisyui/src/theming/themes')['[data-theme=halloween]'],
+					primary: '#F56E01',
 					'primary-content': 'white',
 				},
 			},
-			'halloween',
+			'',
 		],
 	},
 };
