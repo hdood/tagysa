@@ -5,26 +5,25 @@ import { useUserStore } from "./user";
 const app = useNuxtApp();
 const $axios = axios(app).provide.axios;
 
-class LinksStore {
+class UrlsStore {
 	all = ref([]);
 
-	addLink = async (name, url, icon, order, text, profileId) => {
-		await $axios.post("/api/links/" + profileId, {
+	addLink = async (name, link, order, profileId) => {
+		await $axios.post("/api/urls/" + profileId, {
 			name,
-			url,
-			icon,
+			link,
 			order,
-			text,
 		});
 
 		useUserStore().refreshFrame();
 	};
 	getAllLinks = async (profileId) => {
-		let res = await $axios.get("/api/links/" + profileId);
+		let res = await $axios.get("/api/urls/" + profileId);
 		this.all.value = res.data;
 	};
+
 	deleteLink = async (id) => {
-		await $axios.delete(`/api/links/${id}`);
+		await $axios.delete(`/api/urls/${id}`);
 	};
 
 	reorder = async () => {
@@ -33,19 +32,19 @@ class LinksStore {
 			order: index,
 		}));
 
-		$axios.post("/api/links/reorder", {
-			links: JSON.stringify(newOrder),
+		$axios.post("/api/urls/reorder", {
+			urls: JSON.stringify(newOrder),
 		});
 
 		useUserStore().refreshFrame();
 	};
 
 	updateLink = async (id, name, url) => {
-		await $axios.patch(`/api/links/${id}`, {
+		await $axios.patch(`/api/urls/${id}`, {
 			name: name,
 			url: url,
 		});
 	};
 }
 
-export const useLinksStore = defineStore("links", () => new LinksStore());
+export const useUrlsStore = defineStore("urls", () => new UrlsStore());

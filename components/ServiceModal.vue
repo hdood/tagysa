@@ -53,7 +53,7 @@
 											class="select select-primary dropdown join-item"
 										>
 											<option value="USD">USD</option>
-											<option value="INR">INR</option>
+											<option value="INR">SR</option>
 											<option value="EUR">EUR</option>
 										</select>
 										<div>

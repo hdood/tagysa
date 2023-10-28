@@ -6,9 +6,5 @@
 </template>
 
 <script setup>
-
 import { theme } from '~/data/theme';
-
-console.log(theme.value)
-
 </script>

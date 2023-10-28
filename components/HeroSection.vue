@@ -6,7 +6,7 @@
 					class="max-w-fit border-neutral border-[.8rem] scale-90 rounded-[2.5rem] shadow-lg hover:shadow-2xl transition-all duration-300"
 				>
 					<iframe
-						:src="`/hdood?landing=true&theme=${theme}`"
+						:src="`/user/tagysa?landing=true&theme=${theme}`"
 						class="overflow-y-scroll overflow-x-hidden h-[39rem] scale-95 w-[20rem]"
 						ref="frame"
 					>

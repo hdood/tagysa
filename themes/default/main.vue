@@ -208,10 +208,11 @@
 </template>
 
 <script setup>
-	import makeCard from "~~/composables/makeCard";
 	import MediaSection from "./MediaSection.vue";
 	// import TestimonialsSection from "./TestimonialsSection.vue";
 	import TopBar from "~/themes/shared/TopBar.vue";
+
+	const makeCard = useVcard()
 
 	const props = defineProps(["user"]);
 	import themes from "~/data/themes";

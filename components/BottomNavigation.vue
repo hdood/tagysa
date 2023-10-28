@@ -2,32 +2,36 @@
 	<div
 		class="h-12 bg-base-200 w-11/12 rounded-xl shadow-2xl flex mx-auto justify-center gap-7 px-2 items-center"
 	>
-		<routerLink to="/admin/space">
-			<BottomNavigationItem :active="['admin-space', 'admin-space-name']">
+		<routerLink to="/dashboard">
+			<BottomNavigationItem :active="['index-dashboard']">
 				<icon
-					name="cib:myspace"
+					name="material-symbols:dashboard"
 					size="20"
 				/>
 			</BottomNavigationItem>
 		</routerLink>
-		<routerLink to="/admin">
-			<BottomNavigationItem active="admin">
+		<routerLink to="/profile">
+			<BottomNavigationItem active="index-profile">
 				<icon
 					name="fluent:card-ui-24-filled"
 					size="20"
 				/>
 			</BottomNavigationItem>
 		</routerLink>
-		<routerLink to="/admin/analytics">
-			<BottomNavigationItem active="admin-analytics">
+		<routerLink to="/account">
+			<BottomNavigationItem :active="['index-account', 'index-account-cards']">
 				<icon
-					name="majesticons:analytics"
+					name="mdi:account"
 					size="20"
 				/>
-				<span
-					class="dark:text-white item overflow-hidden hidden transition-all duration-200"
-					>Analytics</span
-				>
+			</BottomNavigationItem>
+		</routerLink>
+		<routerLink to="/preview">
+			<BottomNavigationItem :active="['index-preview']">
+				<icon
+					name="fluent:preview-link-20-filled"
+					size="20"
+				/>
 			</BottomNavigationItem>
 		</routerLink>
 	</div>

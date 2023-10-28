@@ -3,12 +3,12 @@
 		<title>Forgot Password</title>
 	</Head>
 
-	<div class="mx-auto bg-base-200 w-full min-h-screen">
+	<div class="mx-auto bg-base-200 w-full min-h-screen" :data-theme="theme">
 		<div
-			class="flex flex-col items-center justify-center p-4 space-y-4 antialiased text-gray-900 rounded-lg"
+			class="flex flex-col items-center justify-center p-4 space-y-4 antialiased text-base-content rounded-lg"
 		>
 			<div
-				class="w-full px-8 max-w-lg space-y-6 bg-white py-16 rounded-lg mt-24"
+				class="w-full px-8 max-w-lg space-y-6 bg-base-100 py-16 rounded-lg mt-24"
 			>
 				<h1 class="mb-6 text-3xl font-bold text-center">Don't worry</h1>
 				<p class="text-center mx-12">
@@ -61,6 +61,8 @@
 <script setup>
 	import axios from "~~/plugins/axios";
 	const $axios = axios().provide.axios;
+
+	import { theme } from "~/data/theme";
 
 	const data = ref({});
 	const email = ref("");

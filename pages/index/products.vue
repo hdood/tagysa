@@ -38,7 +38,7 @@
 				</ul>
 			</div>
 			<div class="navbar-end flex items-center gap-7" v-if="user.id">
-				<RouterLink to="login"><Button type="primary" class="btn-sm"> Dashboard </Button> </RouterLink>
+				<RouterLink to="dashboard"><Button type="primary" class="btn-sm"> Dashboard </Button> </RouterLink>
 				<div class="avatar">
 					<div class="w-8 rounded-full">
 						<img :src="user.image" alt="User Profile Image" />

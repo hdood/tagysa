@@ -6,14 +6,21 @@ const $axios = axios().provide.axios;
 class ProfileStore {
   user = ref({});
 
-  fetchProfile = async (name) => {
+  activeProfile = ref({})
+
+  fetchProfile = async (profileId) => {
     try {
-      const res = await $axios.get(`/api/users/${name}`);
-      this.user.value = res.data;
-    } catch (error) {
+      const response = await $axios(`/api/${profileId}`)
+      this.activeProfile.value = response.data.data
+  } catch (error) {
       this.user.value.id = false;
+      this.activeProfile.value.id = false;
     }
   };
+
+  updateProfileImage = async (data, profileId) => {
+		return await $axios.post("/api/profile-picture/" + profileId, data);
+	};
 
   storeContactSaver = async (name, email, phone) => {
     const { successNotification, errorNotification } = useNotificationsStore();
@@ -31,9 +38,9 @@ class ProfileStore {
     }
   };
 
-  storeVisitor = async () => {
+  storeVisitor = async (profileId) => {
     try {
-      await $axios.post(`/api/visitor/${this.user.value.id}`, {
+      await $axios.post(`/api/visitor/${profileId}`, {
         device: getUserDevice(),
       });
     } catch (error) {}

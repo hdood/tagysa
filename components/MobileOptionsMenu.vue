@@ -42,7 +42,7 @@
 						v-slot="{ active }"
 						@click="showQrModal = true"
 					>
-						<NuxtLink to="admin/account">
+						<NuxtLink to="account">
 							<button
 								:class="[
 									active
@@ -101,25 +101,6 @@
 							Qr
 						</button>
 					</MenuItem>
-
-					<button
-						@click="copyContent"
-						:class="[
-							'group flex w-full items-center rounded-md px-2 py-2 text-sm gap-3 text-base-content hover:bg-primary hover:text-primary-content',
-						]"
-					>
-						<icon
-							size="20"
-							name="line-md:clipboard-check"
-							v-if="copied"
-						/>
-						<icon
-							v-else
-							name="tabler:clipboard"
-							size="20"
-						/>
-						{{ copied ? "copied!" : "Copy link" }}
-					</button>
 				</div>
 				<div class="px-1 py-1">
 					<MenuItem

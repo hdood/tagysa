@@ -1,19 +1,19 @@
 import VCard from "vcard-creator";
 
-export default (
+export const useVcard = () =>  (
 	name: string,
 	email: string,
 	phone: string,
 	address: string,
-	website: string
+	designation : string
 ) => {
 	const myVCard = new VCard();
 	myVCard
 		.addName(name)
 		.addEmail(email)
+		.addJobtitle(designation)
 		.addPhoneNumber(phone, "WORK")
 		.addAddress(address)
-		.addURL(`https://tagy.com/${name}`);
 
 	downloadToFile(myVCard.toString(), name + ".vcf", "text/vcard");
 };

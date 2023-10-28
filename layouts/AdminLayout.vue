@@ -17,13 +17,10 @@
             </label>
             <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
               <li>
-                <NuxtLink to="/dashboard" :class="[useRoute().name == 'dashboard' && 'active']">{{ $t('dashboard') }}</NuxtLink>
+                <NuxtLink to="/dashboard" :class="[useRoute().name == 'index-dashboard' && 'active']">{{ $t('dashboard') }}</NuxtLink>
               </li>
               <li>
-                <NuxtLink to="/profile">{{ $t('profile') }}</NuxtLink>
-              </li>
-              <li>
-                <NuxtLink to="/account">Account</NuxtLink>
+                <NuxtLink to="/account" :class="[(useRoute().name == 'index-account' || useRoute().name == 'index-account-cards') && 'active']">{{ $t('account') }}</NuxtLink>
               </li>
               <li v-if="locale != 'ar'">
                 <a @click.prevent="setLocal('ar')">العربية</a>
@@ -31,7 +28,7 @@
               <li v-else><a @click.prevent="setLocal('en')">English</a></li>
             </ul>
           </div>
-          <a class="btn btn-ghost normal-case text-xl"><Logo /></a>
+          <a class="btn btn-ghost normal-case text-xl"><Logo class="relative bottom-5" /></a>
         </div>
         <div class="navbar-center hidden lg:flex">
           <ul class="menu menu-horizontal gap-2  px-1">
@@ -39,10 +36,7 @@
               <NuxtLink to="/dashboard" :class="[useRoute().name == 'index-dashboard' && 'active']">{{ $t('dashboard') }}</NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/profile">{{ $t('profile') }}</NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/account">Account</NuxtLink>
+              <NuxtLink to="/account" :class="[(useRoute().name == 'index-account' || useRoute().name == 'index-account-cards') && 'active']">{{ $t('account') }}</NuxtLink>
             </li>
           </ul>
         </div>
@@ -70,11 +64,19 @@
             <button @click="setLocal('en')" v-else
               class="btn btn-ghost normal-case btn-sm lg:block hidden">English</button>
             <div class="flex items-center space-x-3">
-              <div class="avatar">
-                <div class="mask mask-squircle w-12 h-12">
-                  <img :src="user.image" />
-                </div>
-              </div>
+             
+              <details class="dropdown ">
+                <summary class="m-1 btn btn-ghost">
+                  <div class="avatar">
+                    <div class="mask mask-squircle w-12 h-12">
+                      <img :src="user.image" />
+                    </div>
+                  </div>
+                </summary>
+                <ul class="p-2 shadow menu dropdown-content z-[1]  rounded-box w-52 bg-base-300 ">
+                  <li @click="logout"><a>Logout</a></li>
+                </ul>
+              </details>
             </div>
           </div>
 
@@ -84,6 +86,7 @@
       <div class="w-full min-h-fit px-2 p-1 mt-10">
         <slot />
       </div>
+      
     </div>
 
     <div class="lg:hidden md:fixed fixed bottom-3 w-full z-50">
@@ -91,6 +94,16 @@
     </div>
 
     <ShareModal :show="showShareModal" @close="showShareModal = false" :user="user" />
+
+		<ConfirmModal
+    :show="deleteConfirm"
+    title="Logout"
+    body="Are you sure you want to logout"
+    type="danger"
+    @close="deleteConfirm = false"
+    @confirm="logout()"
+    positive="Logout"
+  />
   </div>
 </template>
 <script setup>
@@ -98,8 +111,19 @@
 import { useUserStore } from "~/stores/user";
 import { theme } from "~/data/theme";
 import { storeToRefs } from "pinia";
+import { useAuthStore } from "~/stores/auth";
 const { user } = storeToRefs(useUserStore());
 const { getUser, refreshFrame } = useUserStore()
+
+
+const authStore = useAuthStore()
+const deleteConfirm = ref(false);
+
+
+async function logout() {
+		await authStore.logout();
+		useRouter().push("/login");
+	}
 
 
 const showShareModal = ref(false);

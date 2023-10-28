@@ -1,8 +1,8 @@
 <template>
 	<div class="w-full flex flex-col items-center">
 		<Button
+		type="primary"
 			class="h-10 w-full px-8 mx-auto"
-			type="primary"
 			@click="showAddModal = true"
 			>Add Service</Button
 		>

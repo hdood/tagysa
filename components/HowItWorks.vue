@@ -5,33 +5,21 @@
 			class="absolute"
 		></canvas> -->
     <div class="hero w-10/12 mx-auto">
-      <div
-        class="hero-content flex-col lg:flex-row-reverse lg:space-x-24 lg:space-x-reverse"
-      >
-        <img
-          src="~/assets/createCard.png"
-          class="lg:max-w-sm rounded-lg shadow-2xl"
-        />
+      <div class="hero-content flex-col lg:flex-row-reverse lg:gap-24 lg:gap-reverse">
+        <img src="~/assets/createCard.png" class="lg:max-w-sm rounded-lg shadow-2xl" />
         <div>
           <div class="badge badge-secondary mb-3">Step 1</div>
           <h1 class="text-3xl font-bold">Create Your Card</h1>
           <p class="py-6 lg:max-w-md">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
+            Create an account then link you card
           </p>
-          <RouterLink to="login"
-            ><Button type="primary">Create Card</Button></RouterLink
-          >
+          <RouterLink to="login"><Button type="primary">Create Card</Button></RouterLink>
         </div>
       </div>
     </div>
     <div class="hero w-10/12 mx-auto">
       <div class="hero-content flex-col lg:flex-row lg:space-x-24">
-        <img
-          src="~/assets/updateCard.png"
-          class="lg:max-w-sm rounded-lg shadow-2xl"
-        />
+        <img src="~/assets/updateCard.png" class="lg:max-w-sm rounded-lg shadow-2xl" />
         <div>
           <div class="badge badge-secondary mb-3">Step 2</div>
           <h1 class="text-3xl font-bold">Update when required</h1>
@@ -44,25 +32,7 @@
               <div class="flex items-center gap-2">
                 <icon class="text-success" name="gg:check-o" />
                 <div class="lg:text-sm text-xs">
-                  Call-to-action & WhatsApp Button
-                </div>
-              </div>
-              <div class="flex items-center gap-2">
-                <icon class="text-success" name="gg:check-o" />
-                <div class="lg:text-sm text-xs">
-                  Payment & Social Profile Links
-                </div>
-              </div>
-              <div class="flex items-center gap-2">
-                <icon class="text-success" name="gg:check-o" />
-                <div class="lg:text-sm text-xs">
-                  Photo, Banners, Portfolio, Videos, Podcast, etc
-                </div>
-              </div>
-              <div class="flex items-center gap-2">
-                <icon class="text-success" name="gg:check-o" />
-                <div class="lg:text-sm text-xs">
-                  PDF Attachments & more...etc
+                  Social Profile Links
                 </div>
               </div>
             </div>
@@ -71,13 +41,8 @@
       </div>
     </div>
     <div class="hero w-10/12 mx-auto">
-      <div
-        class="hero-content flex-col lg:flex-row-reverse lg:space-x-24 lg:space-x-reverse"
-      >
-        <img
-          src="~/assets/share.png"
-          class="lg:max-w-sm rounded-lg shadow-2xl"
-        />
+      <div class="hero-content flex-col lg:flex-row-reverse lg:space-x-24 lg:space-x-reverse">
+        <img src="~/assets/share.png" class="lg:max-w-sm rounded-lg shadow-2xl" />
         <div>
           <div class="badge badge-secondary mb-3">Step 3</div>
           <h1 class="text-3xl font-bold">Share Your Card</h1>
@@ -122,44 +87,7 @@
         </div>
       </div>
     </div>
-    <div class="hero w-10/12 mx-auto">
-      <div class="hero-content flex-col lg:flex-row lg:space-x-24">
-        <img
-          src="~/assets/business.png"
-          class="lg:max-w-sm rounded-lg shadow-2xl"
-        />
-        <div>
-          <div class="badge badge-secondary mb-3">Step 4</div>
-          <h1 class="text-3xl font-bold">Get Business Connects</h1>
-          <div class="py-6 lg:max-w-md">
-            <p>
-              There are several ways in which your card viewers can connect with
-              you:
-            </p>
-            <div class="mt-2 space-y-2">
-              <div class="flex items-center gap-2">
-                <icon class="text-success" name="gg:check-o" />
-                <div class="lg:text-sm text-xs">
-                  Downloading your contact information as a VCF file.
-                </div>
-              </div>
-              <div class="flex items-center gap-2">
-                <icon class="text-success" name="gg:check-o" />
-                <div class="lg:text-sm text-xs">
-                  Exchanging contact information directly with you.
-                </div>
-              </div>
-              <div class="flex items-center gap-2">
-                <icon class="text-success" name="gg:check-o" />
-                <div class="lg:text-sm text-xs">
-                  You can find their contact details in your contact book.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
   </div>
 </template>
 

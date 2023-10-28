@@ -53,8 +53,10 @@ export default defineNuxtConfig({
 		head: {
 			charset: 'utf-8',
 			viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
-			link: [{ rel: 'icon', type: 'image/svg', href: '/logo.svg' }],
+			link: [{ rel: 'icon', type: 'image/svg', href: '/logo.ico' }],
 		},
+		baseURL: '/app',
+		
 	},
 	components: ['~/components/cards', '~/components'],
 });

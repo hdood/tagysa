@@ -8,11 +8,15 @@
 			<Logo class="w-20 h-20" />
 		</div>
 		<div>
-			<div v-if="sent.status == 'email verified'" class="flex flex-col gap-2 items-center text-center">
-				<div>Email verified</div>
-				<a href="/admin"><Button type="primary">Dashboard</Button></a>
+			<div  class="text-center flex flex-col items-center gap-5">
+				<div class="text-success">Verification link was {{resent ? 'resent' : 'sent'}} to {{ user.email }}</div>
+
+				<div>Didn't receive a verification email click the button and we will send you another one</div>
+
+				<button class="btn " @click="resend" :class="[!resent ? 'btn-primary' : 'btn-disabled']"> {{ !resent ? 'Resend verification link ' : 'resent'}}</button>
+
 			</div>
-			<div v-else>Verification link was sent to {{ user.email }}</div>
+			
 		</div>
 	</div>
 </template>
@@ -24,7 +28,7 @@
 	import { useLinksStore } from '~/stores/links';
 	import { storeToRefs } from 'pinia';
 
-	definePageMeta({ middleware: 'is-logged-out' });
+	definePageMeta({ middleware: ['is-logged-out', "verify-email"] });
 
 	const userStore = useUserStore();
 	const socialStore = useSocialStore();
@@ -35,8 +39,12 @@
 	const { user } = storeToRefs(userStore);
 
 	const sent = ref({});
+	const resent = ref(false);
 
-	onMounted(async () => {
+
+	async function resend(){
 		sent.value = await sendVerificationLink();
-	});
+		resent.value = true;
+	}
+
 </script>

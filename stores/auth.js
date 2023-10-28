@@ -6,13 +6,12 @@ const app = useNuxtApp();
 const $axios = axios(app).provide.axios;
 
 class AuthStore {
-  register = async (name, email, password, confirmPassword, fullName) => {
+  register = async (name, email, password, confirmPassword) => {
     await $axios.post("/register", {
       name: name,
       email: email,
       password: password,
       password_confirmation: confirmPassword,
-      full_name: fullName,
     });
   };
 
@@ -42,11 +41,17 @@ class AuthStore {
 
     try {
       await $axios(`/verify-email/${id}/${hash}`);
+
       successNotification("email verified successfully");
+
       return true;
+      
     } catch (error) {
+
       errorNotification("failed to verify email");
+
       return false;
+
     }
   };
 

@@ -113,7 +113,7 @@ async function onDetect([firstDetectedCode], ctx) {
 		return;
 	}
 
-	code.value = result;
+	code.value = id;
 
 	valid.value = true;
 }

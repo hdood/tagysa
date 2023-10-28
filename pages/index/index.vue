@@ -17,31 +17,47 @@
 					</label>
 					<div tabindex="0"
 						class="menu menu-sm text-xl dropdown-content mt-3 z-[1] px-2 py-4 shadow bg-base-100 rounded-box w-80 text-center flex flex-col gap-3">
-						<div><NuxtLink to="/">Home</NuxtLink></div>
+						<div>
+							<NuxtLink to="/">Home</NuxtLink>
+						</div>
 						<div><a>About us</a></div>
 						<div><a>Products</a></div>
 					</div>
 				</div>
-				<a >
+				<a>
 					<Logo />
 				</a>
 			</div>
 			<div class="navbar-center hidden lg:flex">
 				<ul class="menu menu-horizontal px-1">
-					<li><NuxtLink to="/">Home</NuxtLink></li>
+					<li>
+						<NuxtLink to="/">Home</NuxtLink>
+					</li>
 					<li><a>About us</a></li>
 					<li><a>Products</a></li>
 				</ul>
 			</div>
 			<div class="navbar-end flex items-center gap-7" v-if="user.id">
-				<RouterLink to="login"><Button type="primary" class="btn-sm"> Dashboard </Button> </RouterLink>
+				<button @click="setLocal('ar')" v-if="locale != 'ar'"
+					class="btn btn-ghost normal-case btn-sm lg:block hidden">
+					العربية
+				</button>
+				<button @click="setLocal('en')" v-else
+					class="btn btn-ghost normal-case btn-sm lg:block hidden">English</button>
+				<RouterLink to="/dashboard"><Button type="primary" class="btn-sm"> Dashboard </Button> </RouterLink>
 				<div class="avatar">
 					<div class="w-8 rounded-full">
 						<img :src="user.image" alt="User Profile Image" />
 					</div>
 				</div>
 			</div>
-			<div class="navbar-end space-x-2" v-else>
+			<div class="navbar-end gap-3" v-else>
+				<button @click="setLocal('ar')" v-if="locale != 'ar'"
+					class="btn btn-ghost normal-case btn-sm lg:block hidden">
+					العربية
+				</button>
+				<button @click="setLocal('en')" v-else
+					class="btn btn-ghost normal-case btn-sm lg:block hidden">English</button>
 				<NuxtLink to="/login"><Button type="primary" class="btn-sm">Login</Button></NuxtLink>
 				<NuxtLink to="register"><Button type="primary" class="btn-sm">Register</Button></NuxtLink>
 			</div>
@@ -58,7 +74,7 @@
 		<div class="container p-4 mx-auto text-center">
 			<h2 class="text-4xl font-bold">Trusted by the industry leaders</h2>
 		</div>
-		<div class="container flex flex-wrap justify-center mx-auto dark:text-gray-400">
+		<div class="container flex flex-wrap justify-center mx-auto text-base-content">
 			<div class="flex justify-center w-1/2 p-6 align-middle md:w-1/3 xl:w-1/4">
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="fill-current w-14 h-14">
 					<path
@@ -158,6 +174,12 @@ import { storeToRefs } from 'pinia';
 const userStore = useUserStore();
 const threshold = ref(false);
 const { user } = storeToRefs(userStore);
+
+const { locale } = useI18n();
+function setLocal(_locale) {
+	locale.value = _locale;
+	localStorage.setItem('vkey-locale', _locale);
+}
 
 onMounted(async () => {
 	try {

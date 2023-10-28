@@ -1,6 +1,6 @@
 <template>
   <Head>
-    <title>{{user.name }}</title>
+    <title>{{ user.full_name }}</title>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
@@ -17,7 +17,7 @@
       </div>
       <div class="space-y-4 text-center divide-y divide-gray-700">
         <div class="my-2 space-y-1">
-          <h2 class="text-xl font-semibold sm:text-2xl">{{ user.name }}</h2>
+          <h2 class="text-xl font-semibold sm:text-2xl">{{ user.full_name }}</h2>
           <p class="px-5 text-xs sm:text-base dark:text-gray-400">
             {{ user.designation }}
           </p>
@@ -61,26 +61,31 @@
       </h2>
     </a>
 
-    <div class="card  bg-base-100 shadow-xl my-2  min-w-[20rem]  mt-3 max-w-xs lg:max-w-sm "
-      v-for="service in user.services">
-      <figure><img :src="service.image" alt="Album" /></figure>
-      <div class="card-body">
-        <h2 class="card-title">{{ service.name }}</h2>
-        <p>
-          {{ service.description }}
-        </p>
-        <div class="card-actions justify-end" v-if="service.url">
-          <a :href="service.url" target="_blank" class="btn btn-primary">Visit Website</a>
-        </div>
-      </div>
-    </div>
+    <a v-if="user.address" target="_blank" :href="'https://www.google.com/maps/search/?q=' + user.address"
+      class="flex flex-col justify-center  min-w-[20rem]  mt-3 max-w-xs lg:max-w-sm  p-6 shadow-md rounded-xl sm:px-12 bg-base-100 text-center">
+      <h1 class="w-full text-xl font-medium flex items-center justify-center gap-2">
+        <icon name="mdi:location" />
+        Address
+      </h1>
+      <h2 class="break-words">
+        {{ user.address }}
+      </h2>
+    </a>
 
-    <TestimonialsSection v-if="user.testimonials" :testimonials="user.testimonials " />
+    <a v-if="user.website" target="_blank" :href="user.website"
+      class="flex flex-col justify-center  min-w-[20rem]  mt-3 max-w-xs lg:max-w-sm  p-6 shadow-md rounded-xl sm:px-12 bg-base-100 text-center">
+      <h1 class="w-full text-xl font-medium flex items-center justify-center gap-2">
+        <icon name="mdi:earth" />
+        Website
+      </h1>
+      <h2 class="break-words">
+        {{ user.website }}
+      </h2>
+    </a>
   </div>
   <div v-else>
     user not found
   </div>
-  
 </template>
 
 <script setup>

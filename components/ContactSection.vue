@@ -54,8 +54,12 @@ import axios from "~~/plugins/axios";
 import { storeToRefs } from "pinia";
 import { useNotificationsStore } from "~/stores/notifications";
 import ValidateUrl from "~/composables/ValidateUrl";
+import { useProfileStore } from "~/stores/profile";
+
 const userStore = useUserStore();
-const { user } = storeToRefs(userStore);
+
+const { activeProfile: user } = storeToRefs(useProfileStore());
+
 const { successNotification } = useNotificationsStore();
 
 const app = useNuxtApp();
@@ -76,7 +80,7 @@ function syncState() {
 	address.value = user.value.address;
 	website.value = user.value.website;
 	countryCode.value = user.value.country_code;
-	email.value = user.value.contact_email;
+	email.value = user.value.email;
 }
 
 watch(phone, (value) => {
@@ -108,12 +112,12 @@ const updateContactInfos = async () => {
 	try {
 		loading.value = true;
 
-		await $axios.patch(`/api/users/contact/${user.value.id}`, {
+		await $axios.patch(`/api/profiles/contact/${user.value.id}`, {
 			phone: phone.value,
 			address: address.value,
 			website: website.value,
 			country_code: countryCode.value ? countryCode.value : 91,
-			contact_email: email.value,
+			email: email.value,
 		});
 
 		await userStore.getUser();
@@ -127,6 +131,7 @@ const updateContactInfos = async () => {
 };
 
 onMounted(() => {
+	useProfileStore().fetchProfile(useRoute().params.id)
 	syncState();
 });
 </script>

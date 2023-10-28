@@ -14,46 +14,29 @@
 						<DialogPanel
 							class="w-full max-w-md transform overflow-hidden rounded-2xl bg-base-200 p-6 text-left align-middle shadow-xl transition-all">
 							<DialogTitle as="div" class="text-lg font-medium leading-6 text-base-content">
-								<icon name="ic:round-arrow-back" size="40"
-									class="p-1 cursor-pointer rounded-md hover:bg-base-300" v-if="showInput"
-									@click="showInput = false" />
-								<span v-else>Social Icons</span>
+								<span >Add Link</span>
 							</DialogTitle>
 							<div class="">
-								<transition enter-active-class="transition-all" enter-from-class="opacity-0 -translate-x-4"
-									leave-active-class="transition-all" leave-to-class="opacity-0 translate-x-4" as="div"
-									class="h-full" mode="out-in">
-									<div v-if="showInput"
+									<div 
 										class="mt-5 min-h-[10rem] flex flex-col items-center justify-between h-full">
 										<div class="space-y-3">
-											<TextInput class="" v-model:input="url" label="URL" :placeholder="selectedLink.default
+											<TextInput class="w-[20rem]" v-model:input="url" label="URL" :placeholder="selectedLink.default
 												" :error="errors?.url?.[0]" />
-											<TextInput class="" v-model:input="displayText" label="Text"
+											<TextInput class="w-[20rem]" v-model:input="displayText" label="Name"
 												placeholder="Display text" :error="errors?.text?.[0]" />
 										</div>
-										<div class="w-full flex justify-end gap-3 mt-4">
+										<div class="w-full flex justify-end gap-3 my-4">
 											<button @click="closeModal">
 												Cancel
 											</button>
 
 											<Button class="px-2 h-10" :loading="loading" type="primary" @click="addLink">
 												<div class="flex items-center">
-													<span>Add Icon</span>
+													<span>Add Link</span>
 												</div>
 											</Button>
 										</div>
 									</div>
-									<div class="min-h-[15rem] grid grid-cols-4 gap-4 gap-y-7 items-center justify-center mt-5"
-										v-else>
-										<div class="flex flex-col justify-center items-center gap-1 cursor-pointer p-1 rounded-md hover:bg-accent hover:text-accent-content"
-											v-for="link in links" :key="link.name" @click="selectLink(link)">
-											<icon size="50" :name="link.icon" />
-											<span class="text-xs">
-												{{ link.name }}
-											</span>
-										</div>
-									</div>
-								</transition>
 							</div>
 						</DialogPanel>
 					</TransitionChild>
@@ -72,12 +55,10 @@ import {
 	DialogTitle,
 } from "@headlessui/vue";
 import { storeToRefs } from "pinia";
-import links from "~/data/predefinedLinks";
-import { theme } from "~/data/theme";
-import { useLinksStore } from "~/stores/links";
 import { useProfileStore } from "~/stores/profile";
+import { useUrlsStore } from "~/stores/urls";
 import { useUserStore } from "~/stores/user";
-const linksStore = useLinksStore();
+const urlsStore = useUrlsStore();
 const userStore = useUserStore();
 
 const props = defineProps(["show"]);
@@ -97,7 +78,6 @@ onMounted(async () => {
 
 
 function closeModal() {
-	showInput.value = false;
 	url.value = "";
 	displayText.value = "";
 	emit("close");
@@ -112,20 +92,17 @@ async function addLink() {
 	loading.value = true;
 
 	try {
-		const response = await linksStore.addLink(
-			selectedLink.value.name,
-			url.value,
-			selectedLink.value.icon,
-			linksStore.all.length,
+		const response = await urlsStore.addLink(
 			displayText.value,
+			url.value,
+			urlsStore.all.length,
 			user.value.id
 
 		);
-		await linksStore.getAllLinks(user.value.id);
+		await urlsStore.getAllLinks(user.value.id);
 		url.value = "";
 		displayText.value = "";
 		userStore.refreshFrame();
-		showInput.value = false;
 
 
 	} catch (error) {
@@ -135,10 +112,4 @@ async function addLink() {
 	loading.value = false;
 }
 
-function selectLink(link) {
-	selectedLink.value = link;
-	showInput.value = true;
-	url.value = selectedLink.value.default;
-	displayText.value = selectedLink.value.name;
-}
 </script>

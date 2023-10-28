@@ -13,17 +13,11 @@
 </template>
 
 <script setup>
-	import { useUserStore } from '~~/stores/user';
-	import { useSocialStore } from '~~/stores/social';
 	import { useAuthStore } from '~/stores/auth';
-	import { useLinksStore } from '~/stores/links';
 
-	definePageMeta({ middleware: 'is-logged-out' });
+	definePageMeta({ middleware: ["verify-email"] });
 
-	const userStore = useUserStore();
-	const socialStore = useSocialStore();
 	const authStore = useAuthStore();
-	const linksStore = useLinksStore();
 
 	const { verifyEmail } = authStore;
 	const route = useRoute();
@@ -34,7 +28,7 @@
 	async function verify() {
 		const response = await verifyEmail(id, signature);
 		if (response) {
-			useRouter().push('/admin');
+			useRouter().push('/dashboard');
 		}
 	}
 </script>

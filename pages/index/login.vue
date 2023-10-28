@@ -13,9 +13,6 @@
 					<div class="text-2xl font-medium text-center text-primary">Login</div>
 				</div>
 
-				<div id="buttonEL" ref="buttonEl"></div>
-
-				<div class="w-full text-center">Or</div>
 
 				<form @submit.prevent="login">
 					<div class="">
@@ -52,8 +49,13 @@
 					>
 				</form>
 
-				<div class="text-sm">
-					<RouterLink to="/register" class="underline text-indigo-600">Create account</RouterLink>
+				
+				<div class="w-full text-center">Or</div>
+				<div id="buttonEL" ref="buttonEl"></div>
+
+
+				<div class="text-sm text-right">
+					<RouterLink to="/register" class=" text-base underline">Create account</RouterLink>
 				</div>
 			</div>
 		</div>
@@ -114,13 +116,14 @@
 		try {
 			await authStore.login(email.value, password.value);
 			await userStore.getUser();
-			await linksStore.getAllLinks();
 
-			await router.push('/admin');
+			await router.push('/dashboard');
 		} catch (error) {
-			console.error(error);
-			errors.value = error?.response?.data?.errors;
+
+			errors.value = error?.response?.data;
+
 		}
+
 		loading.value = false;
 	};
 </script>

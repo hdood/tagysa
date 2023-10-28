@@ -7,24 +7,25 @@
 		<div class="flex lg:gap-3 md:gap-3 gap-6 flex-wrap lg:flex-nowrap max-w-7xl mx-auto">
 			<ConfirmModal :show="deleteConfirm" title="Logout" body="Are you sure you want to logout" type="danger"
 				@close="deleteConfirm = false" @confirm="logout()" positive="Logout" />
-			<Button type="danger" @click="deleteConfirm = true" class="w-full lg:hidden">Logout</Button>
+			<Button type="danger" @click="deleteConfirm = true" class="w-full lg:hidden">{{$t('logout')}}</Button>
 			<div class="flex gap-3 w-full lg:max-w-fit">
 				<div class="w-full lg:w-56">
 					<ul class="menu lg:w-56 w-full rounded-box space-y-3 shadow-lg bg-base-200">
+
 						<li>
 							<NuxtLink to="/account" :class="[
 								useRoute().name == 'admin-account' && 'active',
 							]">
-								Account
+								{{$t('account')}}
 							</NuxtLink>
 						</li>
+
 						<li>
 							<NuxtLink to="/account/cards" :class="[
 								useRoute().name == 'admin-account' && 'active',
 							]">
 								{{$t("cards")}}
 							</NuxtLink>
-
 						</li>
 						
 					</ul>
@@ -40,7 +41,7 @@
 <script setup>
 import { useAuthStore } from "~/stores/auth";
 import AdminLayout from "~/layouts/AdminLayout.vue";
-definePageMeta({ middleware: "is-logged-out" });
+definePageMeta({ middleware: ['is-logged-out', "verify-email"] });
 
 const authStore = useAuthStore();
 const deleteConfirm = ref(false);

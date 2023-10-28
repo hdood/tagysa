@@ -1,3 +1,3 @@
 import { ref } from 'vue';
 
-export const theme = ref(localStorage.getItem('tagysa-theme'))
+export const theme = ref(localStorage.getItem('tagysa-theme') ?? 'halloween')

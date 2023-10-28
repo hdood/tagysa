@@ -2,7 +2,7 @@
 <!-- Stats -->
 <section class="p-6 my-6 dark:bg-gray-800 dark:text-gray-100">
     <div class="flex justify-center lg:flex-row lg:gap-48 flex-col gap-6">
-        <div class="flex p-4 space-x-4 rounded-lg md:space-x-6 text-base-content">
+        <div class="flex p-4 gap-4 rounded-lg md:gap-6 text-base-content">
             <div class="flex justify-center p-2 align-middle rounded-lg sm:p-4 bg-primary text-primary-content">
                 <icon name="icon-park-solid:order" size="40" />
                 
@@ -12,7 +12,7 @@
                 <p class="capitalize">Orders</p>
             </div>
         </div>
-        <div class="flex p-4 space-x-4 rounded-lg md:space-x-6 text-base-content">
+        <div class="flex p-4 gap-4 rounded-lg md:gap-6 text-base-content">
             <div class="flex justify-center p-2 align-middle rounded-lg sm:p-4 bg-primary text-primary-content">
                 <icon name="fluent:card-ui-24-filled" size="40" />
             </div>
@@ -21,7 +21,7 @@
                 <p class="capitalize">Cards</p>
             </div>
         </div>
-        <div class="flex p-4 space-x-4 rounded-lg md:space-x-6 text-base-content">
+        <div class="flex p-4 gap-4 rounded-lg md:gap-6 text-base-content">
             <div class="flex justify-center p-2 align-middle rounded-lg sm:p-4 bg-primary text-primary-content">
                 <icon name="pajamas:dashboard" size="40" />
             </div>

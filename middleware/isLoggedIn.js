@@ -5,7 +5,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
 	try {
 		await userStore.getUser();
-		return navigateTo("/admin");
+		return navigateTo("/dashboard");
 	} catch (error) {
 		return true;
 	}

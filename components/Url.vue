@@ -3,16 +3,17 @@
 		<ConfirmModal :show="showDeleteModal" title="Delete Link" body="Are you sure you want to delete this link"
 			type="danger" positive="Delete" @close="showDeleteModal = false" @confirm="deleteLink" />
 		<div class="flex items-center gap-3 justify-between">
+            
 			<div class="flex items-center gap-5">
 				<icon name="mdi:drag" size="35" class="cursor-move handle" />
 				<div class="flex gap-2 items-center">
-					<icon size="40" :name="link.icon" />
+					<icon size="40" name="material-symbols:link" />
 					<div>
 						<div>
-							{{ link.displayText }}
+							{{ link.name }}
 						</div>
 						<div class="text-xs">
-							{{ link.name }}
+							{{ link.link }}
 						</div>
 					</div>
 				</div>
@@ -23,6 +24,7 @@
 					<icon size="25" name="ic:round-delete" />
 				</div>
 			</Button>
+
 		</div>
 
 
@@ -31,11 +33,11 @@
 
 <script setup>
 import { useUserStore } from "~~/stores/user";
-import { useLinksStore } from "~/stores/links";
 import { storeToRefs } from "pinia";
 import { useProfileStore } from "~/stores/profile";
+import { useUrlsStore } from "~/stores/urls";
 const userStore = useUserStore();
-const linksStore = useLinksStore();
+const urlsStore = useUrlsStore();
 
 const showDeleteModal = ref(false);
 
@@ -50,8 +52,8 @@ const emit = defineEmits(["updatedInput"]);
 
 async function deleteLink() {
 	try {
-		await linksStore.deleteLink(link.value.id);
-		await linksStore.getAllLinks(user.value.id);
+		await urlsStore.deleteLink(link.value.id);
+		await urlsStore.getAllLinks(user.value.id);
 		userStore.refreshFrame();
 	} catch (error) {
 		console.log(error);

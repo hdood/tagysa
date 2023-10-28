@@ -17,16 +17,12 @@
 					{{ socialError }}
 				</div>
 
-				<div id="buttonEL" ref="buttonEl"></div>
 
-				<div class="w-full text-center">Or</div>
 
 				<form @submit.prevent="register" class="flex flex-col gap-3 items-center">
 					<div class="flex flex-col gap-2 items-center">
 						<TextInput v-model:input="name" label="Username" placeholder="jhon_doe"
 							:error="errors?.name?.[0]" />
-						<TextInput v-model:input="fullName" label="Full Name" placeholder="Jhon Doe"
-							:error="errors?.fullName?.[0]" />
 						<TextInput v-model:input="email" label="Email" placeholder="j.doe@email.com" inputType="email"
 							:error="errors?.email?.[0]" />
 						<TextInput v-model:input="password" placeholder="Password" label="Password" inputType="password"
@@ -37,8 +33,14 @@
 					<Button :type="valid ? 'primary' : 'disabled'" :loading="loading" class="mt-3 w-full"> Sign Up </Button>
 				</form>
 
+
+
+				
+				<div class="w-full text-center">Or</div>
+				<div id="buttonEL" ref="buttonEl"></div>
+
 				<div class="text-sm">
-					<RouterLink to="/login" class="underline text-indigo-600">Login</RouterLink>
+					<RouterLink to="/login" class=" text-base underline">Login</RouterLink>
 				</div>
 			</div>
 		</div>
@@ -60,7 +62,6 @@ const { error: socialError } = storeToRefs(socialStore);
 
 definePageMeta({ middleware: 'is-logged-in' });
 const name = ref('');
-const fullName = ref('');
 const email = ref('');
 const password = ref('');
 const confirmPassword = ref('');
@@ -77,7 +78,7 @@ onMounted(async () => {
 		onSuccess: async (res) => {
 			loading.value = true;
 			if (await socialStore.googleRegister(res)) {
-				return useRouter().push('/admin');
+				return useRouter().push('/dashboard');
 			}
 			loading.value = true;
 			return true;
@@ -90,12 +91,13 @@ const valid = computed(() => {
 	errors.value = {};
 
 	if (
+		
 		name.value == '' ||
 		email.value == '' ||
 		password.value == '' ||
 		confirmPassword.value == '' ||
-		password.value !== confirmPassword.value ||
-		fullName.value == ''
+		password.value !== confirmPassword.value 
+		
 	) {
 		return false;
 	}
@@ -117,14 +119,6 @@ const register = async () => {
 		return false;
 	}
 
-	if (fullName.value == '') {
-		errors.value = {
-			fullName: ['Full name is required'],
-		};
-		loading.value = false;
-		return false;
-	}
-
 	if (password.value !== confirmPassword.value) {
 		errors.value.confirmPassword = ['password confirmation does not match the password'];
 		loading.value = false;
@@ -138,7 +132,6 @@ const register = async () => {
 			email.value,
 			password.value,
 			confirmPassword.value,
-			fullName.value.trim(),
 		);
 		router.push('/verify');
 	} catch (error) {

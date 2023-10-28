@@ -109,8 +109,10 @@
 import { storeToRefs } from "pinia";
 import { useProfileStore } from "~~/stores/profile";
 import OptionsMenu from "~/themes/shared/OptionsMenu.vue";
-import makeCard from "~~/composables/makeCard";
 import ContactSaverModal from "~/themes/shared/ContactSaverModal.vue";
+
+
+const makeCard = useVcard()
 
 const profileStore = useProfileStore();
 const { user } = storeToRefs(profileStore);

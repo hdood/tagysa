@@ -5,7 +5,9 @@ const $axios = axios().provide.axios;
 class SocialStore {
 	error = ref(false);
 	googleLogin = async (payload) => {
+
 		this.error.value = false;
+
 		try {
 			await $axios.post("/login/google", {
 				client_id: payload.clientId,
@@ -21,6 +23,7 @@ class SocialStore {
 	};
 
 	googleRegister = async (payload) => {
+		
 		this.error.value = false;
 
 		try {

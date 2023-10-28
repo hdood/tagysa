@@ -11,14 +11,17 @@
     </AdminLayout>
 </template>
 
-<script setup lang="ts">
-	import { storeToRefs } from 'pinia';
+<script setup >
+
+import { storeToRefs } from 'pinia';
 import AdminLayout from '~/layouts/AdminLayout.vue';
 import { useUserStore } from '~/stores/user';
-    const { user } = storeToRefs(useUserStore())
+
+definePageMeta({ middleware: ['is-logged-out', "verify-email"] });
+
+const { user } = storeToRefs(useUserStore());
 
 </script>
 
 <style scoped>
-
 </style>
