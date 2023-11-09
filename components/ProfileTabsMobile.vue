@@ -62,15 +62,20 @@ onMounted(() => {
 })
 
 const updateUserImage = async () => {
+
 	try {
+
 		const response = await updateProfileImage(image.value, user.value.id);
 		await userStore.getUser();
 		user.value = response.data.profile
 		useProfileStore().fetchProfile(useRoute().params.id)
 		setTimeout(() => (openCropper.value = false), 300);
+
 	} catch (error) {
+
 		openCropper.value = false;
 		alert(error);
+		
 	}
 };
 

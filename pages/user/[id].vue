@@ -6,19 +6,19 @@
     <meta http-equiv="Expires" content="0" />
   </Head>
 
-  <div class="bg-base-200 min-h-screen min-w-[100vw] flex flex-col " v-if="user.id">
-    <img :src="user.image" class="max-h-96" />
+  <div class="bg-base-200 min-h-screen max-w-sm mx-auto flex flex-col " v-if="user.id">
+    <img :src="user.image" class="aspect-square" />
     <div class="px-3 border-b pb-2">
       <div class="text-2xl font-medium mt-2">
         {{ user.name }}
       </div>
-      <div class="flex items-center gap-2 mt-2">
+      <div class="flex items-center gap-2 mt-2" v-if="user.designation || preview">
         <icon name="ep:info-filled" />
         <div>
           {{ user.designation ?? "Add your title" }}
         </div>
       </div>
-      <div class="flex items-center gap-2 mt-2">
+      <div class="flex items-center gap-2 mt-2" v-if="user.address || preview">
         <icon name="mdi:building" />
         <div>
           {{ user.address ?? "Add you location" }}
@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <div class="my-4 px-4">
+    <div class="my-4 px-4" v-if="user.bio || preview">
       <div class="text-lg font-medium">About me</div>
       <p class=" ">
         {{ user.bio ?? "add about me section" }}
@@ -48,7 +48,7 @@
       </a>
     </div>
 
-    <div class="my-4 px-4">
+    <div class="my-4 px-4" v-if="user.links.length != 0 || preview">
       <div class="text-lg font-medium">Social Icons</div>
       <div class="flex justify-center  items-center pt-2 gap-4 max-w-[15rem] mx-auto flex-wrap my-2"
         v-if="user.links.length != 0">
@@ -77,9 +77,10 @@ const $axios = axios().provide.axios;
 const { user } = storeToRefs(useProfileStore());
 const makeCard = useVcard()
 
+const preview = useRoute().query.preview === "true";
+
 
 onMounted(async () => {
-  const preview = useRoute().query.preview === "true";
   const landing = useRoute().query.landing === "true";
 
   if (landing) {
