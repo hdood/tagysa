@@ -26,7 +26,7 @@
 									<div v-if="showInput"
 										class="mt-5 min-h-[10rem] flex flex-col items-center justify-between h-full">
 										<div class="space-y-3">
-											<TextInput class="" v-model:input="url" label="URL" :placeholder="selectedLink.default
+											<TextInput class="" v-model:input="url" :label="selectedLink.label ? selectedLink.label : 'URL'" :placeholder="selectedLink.default
 												" :error="errors?.url?.[0]" />
 											<TextInput class="" v-model:input="displayText" label="Text"
 												placeholder="Display text" :error="errors?.text?.[0]" />
@@ -114,7 +114,7 @@ async function addLink() {
 	try {
 		const response = await linksStore.addLink(
 			selectedLink.value.name,
-			url.value,
+			selectedLink.value.handle ? selectedLink.value.handle(url.value) : url.value,
 			selectedLink.value.icon,
 			linksStore.all.length,
 			displayText.value,

@@ -20,32 +20,49 @@
 								<span v-else class="">{{ $t('linkCard') }}</span>
 							</DialogTitle>
 
-
 							<transition enter-active-class="transition-all" enter-from-class="opacity-0 -translate-x-4"
 								leave-active-class="transition-all" leave-to-class="opacity-0 translate-x-4" as="div"
 								class="h-full" mode="out-in">
-								<div v-if="valid"
-									class="mt-5 min-h-[10rem] flex flex-col items-center justify-between h-full">
-									<TextInput v-model:input="name" label="Card Name" v-model="name" :error="error" />
-
-									<div class="w-full flex justify-end">
-										<button class="btn btn-primary" @click="linkCard">
-											Link Card
-										</button>
-									</div>
-
+								<div v-if="mode == ''" class="flex justify-center my-9 gap-5">
+									<button class="btn btn-primary" @click="mode = 'qr'">
+										QR Code
+									</button>
+									<button class="btn btn-primary" @click="mode = 'url'">
+										Card Link
+									</button>
 								</div>
-								<div class="" v-else>
-									<div v-if="error" class="text-error text-xl font-medium mt-4">
-										{{ error }}
+								<transition v-else enter-active-class="transition-all"
+									enter-from-class="opacity-0 -translate-x-4" leave-active-class="transition-all"
+									leave-to-class="opacity-0 translate-x-4" as="div" class="h-full" mode="out-in">
+									<div v-if="valid"
+										class="mt-5 min-h-[10rem] flex flex-col items-center justify-between h-full">
+										<TextInput v-model:input="name" label="Card Name" :error="error" />
+										<div class="w-full flex justify-end">
+											<button class="btn btn-primary" @click="linkCard">
+												Link Card
+											</button>
+										</div>
 									</div>
-									<div v-if="loading" class="w-full flex justify-end">
-										<span class="loading loading-spinner loading-md text-primary"></span>
+									<div class="" v-else>
+										<div v-if="error" class="text-error text-xl font-medium mt-4">
+											{{ error }}
+										</div>
+										<div v-if="loading" class="w-full flex justify-end">
+											<span class="loading loading-spinner loading-md text-primary"></span>
+										</div>
+										<div class="mt-10" v-if="mode == 'qr'">
+											<QrcodeStream :track="paintBoundingBox" :onDetect="onDetect" />
+										</div>
+										<div v-if="mode == 'url'">
+											<TextInput v-model:input="url" label="Card Link" />
+											<div class="flex w-full justify-end my-4">
+												<button class="btn btn-primary" @click="onDetect([url], undefined)">
+													Next
+												</button>
+											</div>
+										</div>
 									</div>
-									<div class="mt-10">
-										<QrcodeStream :track="paintBoundingBox" :onDetect="onDetect" />
-									</div>
-								</div>
+								</transition>
 							</transition>
 						</DialogPanel>
 					</TransitionChild>
@@ -67,7 +84,6 @@ import {
 import { storeToRefs } from "pinia";
 import { QrcodeStream } from "vue-qrcode-reader";
 import { theme } from "~/data/theme";
-import { useLinksStore } from "~/stores/links";
 import { useUserStore } from "~/stores/user";
 import axios from "~~/plugins/axios";
 const $axios = axios().provide.axios;
@@ -82,7 +98,11 @@ const name = ref("")
 const code = ref("")
 const { user } = storeToRefs(useUserStore())
 
+const mode = ref("")
+const url = ref("")
+
 function closeModal() {
+	mode.value = ''
 	emit("close");
 }
 
@@ -93,12 +113,8 @@ watch(show, () => {
 
 async function onDetect([firstDetectedCode], ctx) {
 	error.value = "";
-	const result = firstDetectedCode.rawValue
+	const result = firstDetectedCode.rawValue ?? firstDetectedCode
 	const id = result.split("/")[result.split("/").length - 1]
-
-
-	console.log(id)
-
 
 	loading.value = true;
 
@@ -131,18 +147,18 @@ function paintBoundingBox(detectedCodes, ctx) {
 	}
 }
 
-async function linkCard(){
+async function linkCard() {
 	error.value = "";
-	if(!name.value){
+	if (!name.value) {
 		error.value = "Please enter a name for the card";
 		return;
 	}
 
 	try {
-		
+
 		const response = await $axios.post("/api/cards/link", {
 			id: code.value,
-			name : name.value
+			name: name.value
 		});
 
 		user.value = response.data.data

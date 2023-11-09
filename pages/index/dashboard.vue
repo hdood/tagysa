@@ -103,7 +103,7 @@
 				</div>
 			</div>
 			<ConfirmModal :show="showUnlinkModal" title="Unlink Card" body="Are you sure you want to unlink this card"
-			type="danger" positive="Yes unlink this card" @close="showUnlinkModal = false" @confirm="deleteLink" />
+			type="danger" positive="Yes unlink this card" @close="showUnlinkModal = false" @confirm="unlinkCard" />
 
 			<div class="w-full  overflow-hidden rounded-lg  flex flex-col items-start gap-8">
 				<div class="lg:w-[40rem] text-3xl font-medium text-base-content">{{ $t('views') }}</div>
@@ -138,16 +138,30 @@ function selectUnlinkedCard(id){
 	showUnlinkModal.value = true
 }
 
-
-
 const activeCard = ref({})
-
 
 const data = ref([]);
 const chart = ref(false)
 const canvas = ref(null)
 
 let enabled = true;
+
+async function unlinkCard() {
+
+	try {
+
+		const response = await $axios.post("/api/cards/unlink", {
+			id: activeId.value,
+		});
+
+		user.value = response.data.data
+		showUnlinkModal.value = false
+
+	} catch (error) {
+		alert(error);
+	}
+
+}
 
 async function createChart() {
 

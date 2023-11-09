@@ -37,7 +37,9 @@ export default [
 	{
 		name: "Whatsapp",
 		icon: "logos:whatsapp-icon",
-		default: "https://whatsapp.me/",
+		default: "",
+		handle : number => `https://wa.me/${number}`,
+		label : "Phone number"
 	},
 	{
 		name: "Paypal",
